@@ -108,16 +108,27 @@
 
         .btn-group { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 
-        select.theme-selector, input[type="text"], textarea {
+        select.theme-selector {
             background: var(--input-bg);
             color: var(--text-main);
             border: 1px solid var(--border);
             padding: 7px 10px;
             border-radius: 4px;
             font-family: inherit;
+            cursor: pointer;
         }
         
-        select.theme-selector { cursor: pointer; }
+        /* FORM ELEMANLARI (Genişlik Hatası Düzeltildi) */
+        input[type="text"], textarea {
+            width: 100%;
+            background: var(--input-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 10px;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
         input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--accent); }
         textarea { resize: vertical; min-height: 80px; }
         .textarea-large { min-height: 120px; }
@@ -303,7 +314,7 @@
                     <div class="help-text">Maksimum 5 etiket girilebilir.</div>
                 </div>
                 <div class="form-group">
-                    <label>E. NotebookLM / Dış Kaynak Notları (Markdown Destekli)</label>
+                    <label>E. Gemini Notebook (eski adıyla NotebookLM) / Dış Kaynaklar</label>
                     <textarea id="f_notebooklm"></textarea>
                     <div class="help-text">Kalın (**metin**), İtalik (*metin*), Başlık (### Başlık) ve Liste (-) kullanabilirsiniz.</div>
                 </div>
@@ -328,7 +339,7 @@
 
         let entries = [];
         let currentFilter = null; 
-        let editingIndex = null; // Düzenlenmekte olan kaydın indeksi
+        let editingIndex = null; 
 
         function changeTheme() {
             const theme = document.getElementById('themeSelect').value;
@@ -358,7 +369,7 @@
                         book: "Saatleri Ayarlama Enstitüsü",
                         author: "Ahmet Hamdi Tanpınar",
                         tags: ["Zaman Felsefesi", "Modernleşme", "İroni"],
-                        notes_notebooklm: "Tanpınar, bu cümlede Bergsoncu zaman algısını ve Osmanlı'dan Cumhuriyet'e geçişteki **'ayar' (modernleşme/düzen)** ihtiyacını özetler.\n\n### NotebookLM Analizi\n- İnsan, zamanın pasif izleyicisi değil, aktif **ayarlayıcısıdır**.\n- Saat, toplumsal mühendislik metaforudur.",
+                        notes_notebooklm: "Tanpınar, bu cümlede Bergsoncu zaman algısını ve Osmanlı'dan Cumhuriyet'e geçişteki **'ayar' (modernleşme/düzen)** ihtiyacını özetler.\n\n### Gemini Notebook Analizi\n- İnsan, zamanın pasif izleyicisi değil, aktif **ayarlayıcısıdır**.\n- Saat, toplumsal mühendislik metaforudur.",
                         notes_personal: "Bazen kendi hayatımı da sürekli bir *ayar* verme çabası olarak görüyorum.",
                         notes_other: "Romanın birinci bölümünde geçer.",
                         date: new Date().toLocaleDateString('tr-TR')
@@ -377,7 +388,6 @@
             renderFeed();
         }
 
-        // --- DÜZENLEME VE SİLME FONKSİYONLARI ---
         function editEntry(mainIndex) {
             editingIndex = mainIndex;
             const entry = entries[mainIndex];
@@ -445,7 +455,7 @@
                     notesHtml += `<div class="analysis-block">`;
                     
                     if (entry.notes_notebooklm) {
-                        notesHtml += `<div class="analysis-title">NotebookLM / Dış Kaynak Notları</div>
+                        notesHtml += `<div class="analysis-title">Gemini Notebook / Dış Kaynak Notları</div>
                                       <div class="markdown-body">${marked.parse(entry.notes_notebooklm)}</div>`;
                     }
                     if (entry.notes_personal) {
@@ -495,7 +505,7 @@
         function closeModal() { 
             document.getElementById('modalOverlay').style.display = 'none'; 
             document.getElementById('entryForm').reset(); 
-            editingIndex = null; // Kapatırken düzenleme modundan çık
+            editingIndex = null; 
         }
 
         function sanitizeText(text) {
@@ -520,16 +530,13 @@
                 notes_notebooklm: sanitizeText(document.getElementById('f_notebooklm').value),
                 notes_personal: sanitizeText(document.getElementById('f_personal').value),
                 notes_other: sanitizeText(document.getElementById('f_other').value),
-                // Eğer düzenleme yapıyorsak eski tarihi koru, yeni kayıt ekliyorsak şu anki tarihi ver
                 date: (editingIndex !== null && entries[editingIndex].date) ? entries[editingIndex].date : new Date().toLocaleDateString('tr-TR')
             };
 
             if (editingIndex !== null) {
-                // Mevcut kaydı güncelle
                 entries[editingIndex] = newEntry;
                 editingIndex = null;
             } else {
-                // Yeni kaydı en başa ekle
                 entries.unshift(newEntry);
             }
 
