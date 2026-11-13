@@ -86,16 +86,17 @@
         "date": "13.11.2026"
     },
     {
-        "quote": "Enformasyon ve bilgi aynı manaya gelmezler. Enformasyon henüz doğruluğu kanıtlanmamış haber vb. iken bilgi enformasyonun bir ilerisidir. Burada artık enformasyon çeşitli yöntemlerle doğrulanmışve kesinleştirilmiş hale gelmiştir. Örneğin ",
+        "quote": "Enformasyon ve bilgi aynı manaya gelmezler. Enformasyon henüz doğruluğu kanıtlanmamış haber vb. iken bilgi enformasyonun bir ilerisidir. Burada artık enformasyon çeşitli yöntemlerle doğrulanmış ve kesinleştirilmiş hale gelmiştir.",
         "book": "Bilgi nedir",
         "author": "Kemal Sönmez",
         "tags": [
             "Bilim",
             "Düşünce"
         ],
-        "notes_notebooklm": "Burada şu notlar yer alacak: blablabla",
-        "notes_personal": "Bana göre .....",
-        "notes_other": "Bu konuyla ilgili Socrates demiş ki"
+        "notes_notebooklm": "# **Enformasyon ve Bilgi: Bilmek ile Haberdar Olmak Arasındaki Fark**\n\nGünümüzde internet, sosyal medya ve dijital iletişim sayesinde her zamankinden daha fazla enformasyona maruz kalıyoruz. Ancak enformasyona kolayca ulaşabilmek, daha fazla bilgi sahibi olduğumuz anlamına gelmiyor. Çünkü enformasyon ve bilgi, birbiriyle ilişkili olmakla birlikte farklı kavramlardır.\n\n**Enformasyon**, belirli bir düzen içinde sunulan, anlam taşıyan ve bir konu hakkında haberdar olmamızı sağlayan veridir. Ancak enformasyonun doğru, yanlış veya eksik olması mümkündür. Örneğin, internette karşılaştığımız \"Soğanları fazla sulamak verimi düşürür.\" ifadesi bir enformasyondur. Bu iddianın doğruluğu henüz araştırılmamış veya kanıtlanmamış olabilir.\n\n**Bilgi** ise enformasyonun değerlendirilmesi, sorgulanması, mevcut bilgilerle karşılaştırılması ve anlamlandırılması sonucunda oluşur. Bir iddianın bilimsel yöntemlerle araştırılması, kanıtlarla desteklenmesi ve güvenilirliğinin sınanması, onun bilgi niteliği kazanmasına katkıda bulunur.\n\nBu ayrımı açıklamak için şöyle bir örnek verebiliriz: Bir kişi, Dünya'nın Güneş etrafında döndüğünü bir internet haberinde okuyabilir. Bu, onun edindiği enformasyondur. Bu bilginin hangi gözlemlere, hesaplamalara ve bilimsel kanıtlara dayandığını öğrenmesi ise konuyu gerçekten anlamasına ve bilgi edinmesine yardımcı olur.\n\nBu noktada önemli bir ayrıntı vardır: Bilgi mutlaka bilimsel bilgi olmak zorunda değildir. İnsan deneyimleri, gözlemleri ve öğrenme süreçleri de bilgi oluşturabilir. Dolayısıyla enformasyon ile bilgi arasındaki ayrım yalnızca doğrulukla değil, aynı zamanda anlama, değerlendirme ve gerekçelendirmeyle de ilgilidir.\n\nRussell L. Ackoff, sistem düşüncesi alanındaki önemli çalışmalarından *From Data to Wisdom* (1989) makalesinde bu kavramları bir hiyerarşi içinde ele alır. Ona göre enformasyon, \"kim, ne, nerede ve ne zaman?\" sorularına; bilgi ise \"nasıl?\" sorusuna cevap verir. Bu yaklaşım, bilginin yalnızca haberdar olmaktan ibaret olmadığını, öğrenilenlerin nasıl kullanılacağını da kapsadığını gösterir.\nİtalyan filozof Luciano Floridi de enformasyonu anlamlı veriler üzerinden tanımlar ve doğru enformasyonun bilgi oluşumundaki önemini vurgular.\nSonuç olarak, **enformasyon bize ne olduğunu söyler; bilgi ise ne anlama geldiğini ve neden böyle olduğunu anlamamıza yardımcı olur.** Enformasyon çağında yaşadığımızı söylemek mümkün; ancak asıl mesele, karşılaştığımız enformasyonları sorgulayarak gerçek bir bilgi birikimine dönüştürebilmektir.",
+        "notes_personal": "Günümüz toplumlarında insanların karşılıklı birbirlerini anlayamamasının temelinde kavramları kafalarında yanlış bilmelerini den de kaynaklanıyor. En basitinden özgürlük kavramını ele alalım herkes aynı şekilde anlamıyor özgürlüğü bu yüzden bir toplum içinde konuşulurken kişinin özellikle yapacağı konuşmada kullanacağı en önemli kelimeleri kısaca anlatması gerekiyor yani bir konuşma yapıyorsunuz özgürlük geçecek içinde ve buna vurgu yapmak istiyorsunuz ama önce o özgürlüğü anlatırken sizce neyi kastediyorsunuz özgürlükten bunu çok açık bir şekilde ifade etmelisiniz.",
+        "notes_other": "",
+        "date": "13.11.2026"
     },
     {
         "quote": "Saatin kendisi mekân, yürüyüşü zaman, ayarı insandır... Bu da gösterir ki, zaman ve mekân, insanla mevcuttur!",
