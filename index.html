@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satır Arası | Edebi Derinlik Ağım</title>
+    <title>Satır Arası | MaviBlue MaviNotlar</title>
     <style>
         /* TEMA PALETLERİ */
         /* Koyu (Varsayılan) */
@@ -16,6 +16,7 @@
             --accent-hover: #4a7070;
             --quote-color: #d4c4a8;
             --border: #333;
+            --tag-bg: #333;
             --input-bg: #1e1e1e;
         }
 
@@ -29,6 +30,7 @@
             --accent-hover: #115e59;
             --quote-color: #9a3412;
             --border: #e4e4e7;
+            --tag-bg: #e4e4e7;
             --input-bg: #ffffff;
         }
 
@@ -42,20 +44,22 @@
             --accent-hover: #7c3aed;
             --quote-color: #38bdf8;
             --border: #334155;
+            --tag-bg: #334155;
             --input-bg: #0f172a;
         }
 
-        /* Minimalist */
+        /* Minimalist (Düzeltildi) */
         [data-theme="minimalist"] {
             --bg-color: #ffffff;
             --card-bg: #ffffff;
-            --text-main: #000000;
+            --text-main: #111111;
             --text-muted: #666666;
             --accent: #000000;
             --accent-hover: #333333;
             --quote-color: #000000;
-            --border: #000000;
-            --input-bg: #f5f5f5;
+            --border: #e0e0e0; 
+            --tag-bg: #f5f5f5;
+            --input-bg: #fafafa;
         }
 
         /* GENEL STİLLER */
@@ -91,6 +95,21 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+        
+        /* MaviBlue Proje Alt Başlığı */
+        .header-titles {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 2px;
+            font-weight: 600;
         }
 
         h1 {
@@ -193,7 +212,7 @@
         }
 
         .tag {
-            background: var(--border);
+            background: var(--tag-bg);
             color: var(--text-main);
             padding: 4px 10px;
             border-radius: 4px;
@@ -208,14 +227,16 @@
 
         .book-tag { background: transparent; border: 1px solid var(--border); cursor: default;}
         .author-tag { color: #fff; background: #2a3f3f; }
+        
         [data-theme="light"] .author-tag { background: #0f766e; }
         [data-theme="modern"] .author-tag { background: #4f46e5; }
-        [data-theme="minimalist"] .author-tag { background: #333; }
+        [data-theme="minimalist"] .author-tag { background: #111; color: #fff; }
 
         .date-text {
             font-size: 0.8rem;
             color: var(--text-muted);
             white-space: nowrap;
+            margin-top: 3px;
         }
 
         .analysis-block {
@@ -288,7 +309,10 @@
     <div class="container">
         <header>
             <div class="header-top">
-                <h1 onclick="clearFilter()" title="Ana Sayfaya Dön">Satır Arası</h1>
+                <div class="header-titles">
+                    <div class="project-subtitle">MaviBlue Stüdyo MaviNotlar Projesi</div>
+                    <h1 onclick="clearFilter()" title="Ana Sayfaya Dön">Satır Arası</h1>
+                </div>
                 <div class="btn-group">
                     <select class="theme-selector" id="themeSelect" onchange="changeTheme()">
                         <option value="dark">Koyu Tema</option>
@@ -358,21 +382,18 @@
 
     <script>
         let entries = [];
-        let currentFilter = null; // Örn: {type: 'author', value: 'Ahmet Hamdi Tanpınar'}
+        let currentFilter = null; 
 
-        // Tema Ayarlama Mantığı
         function changeTheme() {
             const theme = document.getElementById('themeSelect').value;
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('satirArasiTheme', theme);
         }
 
-        // Başlangıçta temayı yükle
         const savedTheme = localStorage.getItem('satirArasiTheme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
         document.getElementById('themeSelect').value = savedTheme;
 
-        // Veri Çekme İşlemi (GitHub uyumlu)
         fetch('okuma-notlari.json')
             .then(response => {
                 if (!response.ok) throw new Error("JSON bulunamadı");
@@ -400,7 +421,6 @@
                 renderFeed();
             });
 
-        // Filtreleme Fonksiyonları
         function applyFilter(type, value) {
             currentFilter = { type, value };
             renderFeed();
@@ -411,14 +431,12 @@
             renderFeed();
         }
 
-        // Arayüz Çizimi
         function renderFeed() {
             const feed = document.getElementById('feed');
             const banner = document.getElementById('active-filter-banner');
             const filterText = document.getElementById('filter-text');
             feed.innerHTML = '';
 
-            // Filtreleme uygulanacak listeyi belirle
             let listToRender = entries;
             
             if (currentFilter) {
@@ -443,12 +461,10 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 
-                // Etiketleri tıklanabilir yap
                 const tagsHtml = (entry.tags || []).map(tag => 
                     `<span class="tag" onclick="applyFilter('tag', '${tag}')">${tag}</span>`
                 ).join('');
                 
-                // Sadece içi dolu olan not alanları render edilir
                 let notesHtml = '';
                 if (entry.notes_notebooklm || entry.notes_personal || entry.notes_other) {
                     notesHtml += `<div class="analysis-block">`;
@@ -488,11 +504,18 @@
             });
         }
 
-        // Modal İşlemleri
         function openModal() { document.getElementById('modalOverlay').style.display = 'flex'; }
         function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; document.getElementById('entryForm').reset(); }
 
-        // Yeni Kayıt Ekleme
+        // MÜKEMMEL METİN TEMİZLEYİCİ (NotebookLM Boşluklarını Düzenler)
+        function sanitizeText(text) {
+            if (!text) return "";
+            return text
+                .replace(/^[ \t]+/gm, '')      // Satır başlarındaki girintileri (indent) siler
+                .replace(/\n{3,}/g, '\n\n')    // 3 veya daha fazla satır atlamayı (boşlukları) maksimum 2'ye düşürür
+                .trim();                       // Başındaki ve sonundaki fazlalıkları atar
+        }
+
         function saveEntry(e) {
             e.preventDefault();
             
@@ -502,20 +525,21 @@
                 .filter(t => t !== '')
                 .slice(0, 5);
 
+            // Verileri kaydederken sanitizeText fonksiyonundan geçiriyoruz
             const newEntry = {
-                quote: document.getElementById('f_quote').value,
-                book: document.getElementById('f_book').value,
-                author: document.getElementById('f_author').value,
+                quote: sanitizeText(document.getElementById('f_quote').value),
+                book: document.getElementById('f_book').value.trim(),
+                author: document.getElementById('f_author').value.trim(),
                 tags: processedTags,
-                notes_notebooklm: document.getElementById('f_notebooklm').value,
-                notes_personal: document.getElementById('f_personal').value,
-                notes_other: document.getElementById('f_other').value,
-                date: new Date().toLocaleDateString('tr-TR') // O anki tarih
+                notes_notebooklm: sanitizeText(document.getElementById('f_notebooklm').value),
+                notes_personal: sanitizeText(document.getElementById('f_personal').value),
+                notes_other: sanitizeText(document.getElementById('f_other').value),
+                date: new Date().toLocaleDateString('tr-TR')
             };
 
             entries.unshift(newEntry);
             saveDataLocally();
-            clearFilter(); // Yeni ekleyince filtreyi temizle ki listeyi görsün
+            clearFilter(); 
             closeModal();
         }
 
@@ -533,7 +557,6 @@
             downloadAnchorNode.remove();
         }
 
-        // JSON YÜKLE VE AKILLI BİRLEŞTİR (MERGE)
         function importJSON(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -544,19 +567,16 @@
                     if (Array.isArray(importedData)) {
                         let addedCount = 0;
                         
-                        // Yüklenen dosyadaki her bir alıntıyı kontrol et
                         importedData.forEach(newEntry => {
-                            // Aynısı bizde var mı? (Alıntı metni birebir aynıysa ekleme)
                             const isDuplicate = entries.some(existingEntry => 
                                 existingEntry.quote.trim().toLowerCase() === newEntry.quote.trim().toLowerCase()
                             );
 
                             if (!isDuplicate) {
-                                // Tarih alanı boş kalmışsa, birleştirme anındaki tarihi at
                                 if (!newEntry.date) {
                                     newEntry.date = new Date().toLocaleDateString('tr-TR');
                                 }
-                                entries.unshift(newEntry); // Listeye ekle
+                                entries.unshift(newEntry); 
                                 addedCount++;
                             }
                         });
@@ -576,7 +596,6 @@
                 } catch (err) { 
                     alert("Dosya okunurken hata oluştu."); 
                 }
-                // Input alanını sıfırla ki aynı dosyayı tekrar seçebilsin
                 event.target.value = '';
             };
             reader.readAsText(file);
