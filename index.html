@@ -20,8 +20,8 @@
             --tag-bg: #333;
             --input-bg: #1e1e1e;
             --md-strong: #fff;
-            --btn-text: #e0e0e0; /* Varsayılan buton metin rengi eklendi */
-            --btn-hover-text: #fff; /* Hover metin rengi eklendi */
+            --btn-text: #e0e0e0;
+            --btn-hover-text: #fff;
         }
 
         [data-theme="light"] {
@@ -69,7 +69,7 @@
             --input-bg: #fafafa;
             --md-strong: #000;
             --btn-text: #000000; 
-            --btn-hover-text: #fff; /* Minimalist temada hover metni beyaz olacak */
+            --btn-hover-text: #fff; 
         }
 
         /* GENEL STİLLER */
@@ -149,7 +149,7 @@
 
         button {
             background: var(--accent); color: white; border: none; padding: 8px 16px;
-            border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: background 0.2s, color 0.2s; /* Renk geçişi eklendi */
+            border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: background 0.2s, color 0.2s; 
         }
 
         button:hover { background: var(--accent-hover); }
@@ -244,15 +244,15 @@
         
         .toggle-notes-btn {
             background: var(--input-bg); 
-            color: var(--btn-text); /* Dinamik metin rengi eklendi */
+            color: var(--btn-text);
             border: 1px solid var(--border);
             padding: 5px 12px; border-radius: 4px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
         }
         
         .toggle-notes-btn:hover { 
             border-color: var(--accent); 
-            background: var(--accent); /* Arka plan vurgu rengi olacak */
-            color: var(--btn-hover-text); /* Hover durumunda metin okunabilir renkte kalacak */
+            background: var(--accent); 
+            color: var(--btn-hover-text); 
         }
 
         .edit-btn, .delete-btn {
@@ -470,7 +470,7 @@
         }
 
         function deleteEntry(mainIndex) {
-            if (confirm("Bu alıntıyı ve notlarını kalıcı olarak silmek istediğinizden emin misiniz?")) {
+            if (confirm("Bu alıntıyı sadece bu cihazdan silmek istediğinize emin misiniz?\n\n(Ana sitedeki kayıtlar bu işlemden etkilenmez.)")) {
                 entries.splice(mainIndex, 1);
                 saveDataLocally();
                 renderFeed();
