@@ -186,6 +186,7 @@
             margin-bottom: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             transition: background-color 0.3s, border-color 0.3s;
+            position: relative; /* Sil butonu hizalaması için */
         }
 
         .quote-section {
@@ -260,6 +261,31 @@
         .content-text {
             font-size: 1rem;
             margin-bottom: 1.2rem;
+        }
+
+        /* SİL BUTONU STİLLERİ */
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+        }
+
+        .delete-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            color: #ef4444; /* Kırmızı metin */
+            border-color: #ef4444; /* Kırmızı çerçeve */
+            background: rgba(239, 68, 68, 0.05); /* Çok hafif kırmızı arkaplan */
         }
 
         /* Modal Stilleri */
@@ -434,6 +460,15 @@
             renderFeed();
         }
 
+        // SİLME İŞLEMİ
+        function deleteEntry(mainIndex) {
+            if (confirm("Bu alıntıyı ve notlarını kalıcı olarak silmek istediğinizden emin misiniz?")) {
+                entries.splice(mainIndex, 1); // Ana diziden sil
+                saveDataLocally(); // Yerel depolamayı güncelle
+                renderFeed(); // Ekranı yeniden çiz
+            }
+        }
+
         function renderFeed() {
             const feed = document.getElementById('feed');
             const banner = document.getElementById('active-filter-banner');
@@ -465,6 +500,9 @@
             }
 
             listToRender.forEach(entry => {
+                // Sileceğimiz kaydın ana "entries" dizisindeki gerçek sırasını buluyoruz
+                const mainIndex = entries.indexOf(entry);
+
                 const card = document.createElement('div');
                 card.className = 'card';
                 
@@ -506,6 +544,10 @@
                     </div>
 
                     ${notesHtml}
+
+                    <div class="card-actions">
+                        <button class="delete-btn" onclick="deleteEntry(${mainIndex})" title="Bu alıntıyı sil">Sil</button>
+                    </div>
                 `;
                 feed.appendChild(card);
             });
