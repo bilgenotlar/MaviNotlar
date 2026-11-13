@@ -48,7 +48,7 @@
             --input-bg: #0f172a;
         }
 
-        /* Minimalist (Düzeltildi) */
+        /* Minimalist */
         [data-theme="minimalist"] {
             --bg-color: #ffffff;
             --card-bg: #ffffff;
@@ -220,14 +220,15 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: opacity 0.2s, background-color 0.2s;
         }
 
         .tag:hover { opacity: 0.8; }
 
-        .book-tag { background: transparent; border: 1px solid var(--border); cursor: default;}
-        .author-tag { color: #fff; background: #2a3f3f; }
+        .book-tag { background: transparent; border: 1px solid var(--border); }
+        .book-tag:hover { background: rgba(128,128,128,0.1); }
         
+        .author-tag { color: #fff; background: #2a3f3f; }
         [data-theme="light"] .author-tag { background: #0f766e; }
         [data-theme="modern"] .author-tag { background: #4f46e5; }
         [data-theme="minimalist"] .author-tag { background: #111; color: #fff; }
@@ -447,6 +448,10 @@
                 } else if (currentFilter.type === 'tag') {
                     filterText.innerText = `Filtrelendi: Etiket - ${currentFilter.value}`;
                     listToRender = entries.filter(e => e.tags && e.tags.includes(currentFilter.value));
+                } else if (currentFilter.type === 'book') {
+                    // YENİ EKLENEN KISIM: Eser Filtresi
+                    filterText.innerText = `Filtrelendi: Eser - ${currentFilter.value}`;
+                    listToRender = entries.filter(e => e.book === currentFilter.value);
                 }
             } else {
                 banner.style.display = 'none';
@@ -491,7 +496,7 @@
                     
                     <div class="meta-container">
                         <div class="meta-tags">
-                            <span class="tag book-tag">📖 ${entry.book}</span>
+                            <span class="tag book-tag" onclick="applyFilter('book', '${entry.book}')" title="Bu eserin diğer alıntılarını gör">📖 ${entry.book}</span>
                             <span class="tag author-tag" onclick="applyFilter('author', '${entry.author}')" title="Bu yazarın diğer alıntılarını gör">✍️ ${entry.author}</span>
                             ${tagsHtml}
                         </div>
@@ -507,13 +512,12 @@
         function openModal() { document.getElementById('modalOverlay').style.display = 'flex'; }
         function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; document.getElementById('entryForm').reset(); }
 
-        // MÜKEMMEL METİN TEMİZLEYİCİ (NotebookLM Boşluklarını Düzenler)
         function sanitizeText(text) {
             if (!text) return "";
             return text
-                .replace(/^[ \t]+/gm, '')      // Satır başlarındaki girintileri (indent) siler
-                .replace(/\n{3,}/g, '\n\n')    // 3 veya daha fazla satır atlamayı (boşlukları) maksimum 2'ye düşürür
-                .trim();                       // Başındaki ve sonundaki fazlalıkları atar
+                .replace(/^[ \t]+/gm, '')      
+                .replace(/\n{3,}/g, '\n\n')    
+                .trim();                       
         }
 
         function saveEntry(e) {
@@ -525,7 +529,6 @@
                 .filter(t => t !== '')
                 .slice(0, 5);
 
-            // Verileri kaydederken sanitizeText fonksiyonundan geçiriyoruz
             const newEntry = {
                 quote: sanitizeText(document.getElementById('f_quote').value),
                 book: document.getElementById('f_book').value.trim(),
