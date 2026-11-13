@@ -84,13 +84,13 @@
         header {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
             margin-bottom: 2rem;
             border-bottom: 1px solid var(--border);
             padding-bottom: 1.5rem;
         }
 
-        .header-top { display: flex; justify-content: space-between; align-items: center; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;}
         
         .header-titles { display: flex; flex-direction: column; align-items: center; }
 
@@ -118,7 +118,7 @@
             cursor: pointer;
         }
         
-        /* FORM ELEMANLARI (Genişlik Hatası Düzeltildi) */
+        /* ARAMA VE FORM ELEMANLARI */
         input[type="text"], textarea {
             width: 100%;
             background: var(--input-bg);
@@ -133,15 +133,15 @@
         textarea { resize: vertical; min-height: 80px; }
         .textarea-large { min-height: 120px; }
 
+        .search-bar-container { width: 100%; position: relative; }
+        .search-bar-container input {
+            padding: 12px 15px; font-size: 1rem; border-radius: 8px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
         button {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.2s;
+            background: var(--accent); color: white; border: none; padding: 8px 16px;
+            border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: background 0.2s;
         }
 
         button:hover { background: var(--accent-hover); }
@@ -154,7 +154,8 @@
             border-radius: 4px; margin-bottom: 2rem; justify-content: space-between;
             align-items: center; font-size: 0.95rem;
         }
-        #active-filter-banner button { background: rgba(255,255,255,0.2); padding: 4px 10px; }
+        #active-filter-banner button { background: rgba(255,255,255,0.2); padding: 4px 10px; border: none; color: white; cursor: pointer; border-radius: 4px;}
+        #active-filter-banner button:hover { background: rgba(255,255,255,0.3); }
 
         /* KART STİLLERİ */
         .card {
@@ -168,7 +169,7 @@
             color: var(--quote-color); margin-bottom: 1.5rem; position: relative;
         }
 
-        .meta-container { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
+        .meta-container { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px; }
         .meta-tags { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
         
         .tag {
@@ -186,7 +187,14 @@
 
         .date-text { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; margin-top: 3px; }
 
-        .analysis-block { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--border); }
+        /* AKORDEON NOTLAR BÖLÜMÜ */
+        .accordion-content {
+            display: none; /* Varsayılan olarak gizli */
+            margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--border);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
         
         .analysis-title {
             font-size: 0.85rem; color: var(--accent); text-transform: uppercase;
@@ -194,9 +202,7 @@
         }
 
         /* MARKDOWN RENDER STİLLERİ */
-        .markdown-body {
-            font-size: 1rem; color: var(--text-main); margin-bottom: 1.5rem; line-height: 1.7;
-        }
+        .markdown-body { font-size: 1rem; color: var(--text-main); margin-bottom: 1.5rem; line-height: 1.7; }
         .markdown-body p { margin-top: 0; margin-bottom: 1rem; }
         .markdown-body p:last-child { margin-bottom: 0; }
         .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
@@ -219,18 +225,21 @@
             font-family: monospace; font-size: 0.9em; border: 1px solid var(--border);
         }
 
-        /* AKSİYON (DÜZENLE/SİL) BUTONLARI & UYARI ALANI */
+        /* AKSİYON (GÖSTER/DÜZENLE/SİL) BUTONLARI */
         .card-actions-wrapper {
-            display: flex; justify-content: space-between; align-items: flex-end;
-            margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);
             gap: 15px; flex-wrap: wrap;
         }
-        .action-warning {
-            flex: 1; font-size: 0.75rem; color: var(--text-muted); font-style: italic;
-            opacity: 0.8; line-height: 1.4; min-width: 250px;
-        }
-        .card-actions { display: flex; gap: 8px; }
+        .card-actions-left { display: flex; gap: 8px; }
+        .card-actions-right { display: flex; gap: 8px; }
         
+        .toggle-notes-btn {
+            background: var(--input-bg); color: var(--accent); border: 1px solid var(--border);
+            padding: 5px 12px; border-radius: 4px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+        }
+        .toggle-notes-btn:hover { border-color: var(--accent); }
+
         .edit-btn, .delete-btn {
             background: transparent; border: 1px solid transparent; padding: 4px 10px;
             border-radius: 4px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease;
@@ -249,11 +258,20 @@
         .modal {
             background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
             width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; padding: 2rem;
+            position: relative;
         }
         .modal h2 { margin-top: 0; color: var(--accent); }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
-        .form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 2rem; }
+        
+        /* Modal İçi Uyarı Mesajı */
+        .modal-warning {
+            background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107;
+            padding: 10px 15px; margin-top: 2rem; font-size: 0.8rem; color: var(--text-muted);
+            border-radius: 0 4px 4px 0; line-height: 1.5; font-style: italic;
+        }
+        
+        .form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem; }
         .help-text { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
     </style>
 </head>
@@ -278,6 +296,11 @@
                     <button class="secondary" onclick="document.getElementById('importFile').click()">JSON Yükle</button>
                     <button onclick="openModal()">+ Yeni Ekle</button>
                 </div>
+            </div>
+            
+            <!-- AKILLI ARAMA ÇUBUĞU -->
+            <div class="search-bar-container">
+                <input type="text" id="searchInput" placeholder="Alıntı, yazar, eser veya notlarda ara..." onkeyup="handleSearch()">
             </div>
         </header>
 
@@ -326,6 +349,12 @@
                     <label>G. Diğer Eklemeler (Markdown Destekli)</label>
                     <textarea id="f_other"></textarea>
                 </div>
+
+                <!-- KALICILIK UYARISI -->
+                <div class="modal-warning">
+                    ⚠️ Bu alıntı ile ilgili yaptığınız eklemeler, düzenlemeler veya alıntı silme eylemleri sadece kendi cihazınızda (tarayıcı hafızasında) kalacaktır. Ana sitede kalıcı değişiklik yapmak için işiniz bitince <b>"JSON İndir"</b> butonunu kullanmayı unutmayın.
+                </div>
+
                 <div class="form-actions">
                     <button type="button" class="secondary" onclick="closeModal()">İptal</button>
                     <button type="submit">Kaydet</button>
@@ -338,7 +367,8 @@
         marked.setOptions({ breaks: true, gfm: true });
 
         let entries = [];
-        let currentFilter = null; 
+        let currentFilter = null; // Etiket, yazar, eser filtresi
+        let currentSearchQuery = ""; // Arama çubuğu filtresi
         let editingIndex = null; 
 
         function changeTheme() {
@@ -378,6 +408,12 @@
                 renderFeed();
             });
 
+        // ARAMA FONKSİYONU
+        function handleSearch() {
+            currentSearchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            renderFeed();
+        }
+
         function applyFilter(type, value) {
             currentFilter = { type, value };
             renderFeed();
@@ -385,7 +421,23 @@
 
         function clearFilter() {
             currentFilter = null;
+            currentSearchQuery = "";
+            document.getElementById('searchInput').value = ""; // Arama çubuğunu da temizle
             renderFeed();
+        }
+
+        // AKORDEON AÇ/KAPA FONKSİYONU
+        function toggleNotes(index) {
+            const content = document.getElementById(`notes-content-${index}`);
+            const btn = document.getElementById(`toggle-btn-${index}`);
+            
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                btn.innerHTML = "Notları Gizle ▲";
+            } else {
+                content.style.display = "none";
+                btn.innerHTML = "Notları Göster ▼";
+            }
         }
 
         function editEntry(mainIndex) {
@@ -420,24 +472,47 @@
 
             let listToRender = entries;
             
+            // 1. Tıklanabilir Etiket/Yazar/Eser Filtresi Uygula
             if (currentFilter) {
-                banner.style.display = 'flex';
                 if (currentFilter.type === 'author') {
-                    listToRender = entries.filter(e => e.author === currentFilter.value);
-                    filterText.innerText = `${listToRender.length} Alıntı Filtrelendi: Yazar - ${currentFilter.value}`;
+                    listToRender = listToRender.filter(e => e.author === currentFilter.value);
                 } else if (currentFilter.type === 'tag') {
-                    listToRender = entries.filter(e => e.tags && e.tags.includes(currentFilter.value));
-                    filterText.innerText = `${listToRender.length} Alıntı Filtrelendi: Etiket - ${currentFilter.value}`;
+                    listToRender = listToRender.filter(e => e.tags && e.tags.includes(currentFilter.value));
                 } else if (currentFilter.type === 'book') {
-                    listToRender = entries.filter(e => e.book === currentFilter.value);
-                    filterText.innerText = `${listToRender.length} Alıntı Filtrelendi: Eser - ${currentFilter.value}`;
+                    listToRender = listToRender.filter(e => e.book === currentFilter.value);
                 }
+            }
+            
+            // 2. Arama Çubuğu Filtresi Uygula (Tüm metinlerde arar)
+            if (currentSearchQuery) {
+                listToRender = listToRender.filter(e => {
+                    const searchContent = [
+                        e.quote, e.book, e.author, 
+                        (e.tags || []).join(" "), 
+                        e.notes_notebooklm, e.notes_personal, e.notes_other
+                    ].join(" ").toLowerCase();
+                    return searchContent.includes(currentSearchQuery);
+                });
+            }
+
+            // Banner Durumunu Güncelle
+            if (currentFilter || currentSearchQuery) {
+                banner.style.display = 'flex';
+                let bannerParts = [];
+                if (currentFilter) {
+                    let typeName = currentFilter.type === 'author' ? 'Yazar' : currentFilter.type === 'book' ? 'Eser' : 'Etiket';
+                    bannerParts.push(`${typeName} [${currentFilter.value}]`);
+                }
+                if (currentSearchQuery) {
+                    bannerParts.push(`Arama [${currentSearchQuery}]`);
+                }
+                filterText.innerText = `${listToRender.length} Sonuç Bulundu: ${bannerParts.join(' & ')}`;
             } else {
                 banner.style.display = 'none';
             }
 
             if (listToRender.length === 0) {
-                feed.innerHTML = `<p style="text-align:center; color:var(--text-muted);">Bu filtreye uygun kayıt bulunamadı.</p>`;
+                feed.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top: 3rem;">Arama kriterlerinize uygun kayıt bulunamadı.</p>`;
                 return;
             }
 
@@ -450,9 +525,12 @@
                     `<span class="tag" onclick="applyFilter('tag', '${tag}')">${tag}</span>`
                 ).join('');
                 
+                // Notlar kısmı (Akordeon İçeriği)
                 let notesHtml = '';
-                if (entry.notes_notebooklm || entry.notes_personal || entry.notes_other) {
-                    notesHtml += `<div class="analysis-block">`;
+                const hasNotes = entry.notes_notebooklm || entry.notes_personal || entry.notes_other;
+                
+                if (hasNotes) {
+                    notesHtml += `<div class="accordion-content" id="notes-content-${mainIndex}">`;
                     
                     if (entry.notes_notebooklm) {
                         notesHtml += `<div class="analysis-title">Gemini Notebook / Dış Kaynak Notları</div>
@@ -470,6 +548,11 @@
                 }
 
                 const dateStr = entry.date ? entry.date : "";
+                
+                // Sadece not varsa "Notları Göster" butonu çıkar
+                const toggleBtnHtml = hasNotes 
+                    ? `<button class="toggle-notes-btn" id="toggle-btn-${mainIndex}" onclick="toggleNotes(${mainIndex})">Notları Göster ▼</button>`
+                    : `<div></div>`; // Düzenin bozulmaması için boş div
 
                 card.innerHTML = `
                     <div class="quote-section">${entry.quote.replace(/\n/g, '<br>')}</div>
@@ -486,8 +569,10 @@
                     ${notesHtml}
 
                     <div class="card-actions-wrapper">
-                        <div class="action-warning">Bu alıntı ile ilgili yaptığınız düzenlemeler veya alıntı silme eylemleri sadece kendi cihazınızda kalacaktır. Ana sitede değişiklik yapılmayacaktır.</div>
-                        <div class="card-actions">
+                        <div class="card-actions-left">
+                            ${toggleBtnHtml}
+                        </div>
+                        <div class="card-actions-right">
                             <button class="edit-btn" onclick="editEntry(${mainIndex})" title="Bu alıntıyı düzenle">Düzenle</button>
                             <button class="delete-btn" onclick="deleteEntry(${mainIndex})" title="Bu alıntıyı sil">Sil</button>
                         </div>
