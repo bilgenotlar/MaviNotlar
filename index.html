@@ -101,15 +101,17 @@
         .header-titles {
             display: flex;
             flex-direction: column;
+            align-items: center; 
         }
 
         .project-subtitle {
-            font-size: 0.75rem;
+            font-size: 0.65rem; 
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1.5px;
             margin-bottom: 2px;
             font-weight: 600;
+            text-align: center; 
         }
 
         h1 {
@@ -442,16 +444,16 @@
             
             if (currentFilter) {
                 banner.style.display = 'flex';
+                // Filtrelemeyi yapıyoruz
                 if (currentFilter.type === 'author') {
-                    filterText.innerText = `Filtrelendi: Yazar - ${currentFilter.value}`;
                     listToRender = entries.filter(e => e.author === currentFilter.value);
+                    filterText.innerText = `${listToRender.length} Alıntı Filtrelendi: Yazar - ${currentFilter.value}`;
                 } else if (currentFilter.type === 'tag') {
-                    filterText.innerText = `Filtrelendi: Etiket - ${currentFilter.value}`;
                     listToRender = entries.filter(e => e.tags && e.tags.includes(currentFilter.value));
+                    filterText.innerText = `${listToRender.length} Alıntı Filtrelendi: Etiket - ${currentFilter.value}`;
                 } else if (currentFilter.type === 'book') {
-                    // YENİ EKLENEN KISIM: Eser Filtresi
-                    filterText.innerText = `Filtrelendi: Eser - ${currentFilter.value}`;
                     listToRender = entries.filter(e => e.book === currentFilter.value);
+                    filterText.innerText = `${listToRender.length} Alıntı Filtrelendi: Eser - ${currentFilter.value}`;
                 }
             } else {
                 banner.style.display = 'none';
