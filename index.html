@@ -20,6 +20,8 @@
             --tag-bg: #333;
             --input-bg: #1e1e1e;
             --md-strong: #fff;
+            --btn-text: #e0e0e0; /* Varsayılan buton metin rengi eklendi */
+            --btn-hover-text: #fff; /* Hover metin rengi eklendi */
         }
 
         [data-theme="light"] {
@@ -34,6 +36,8 @@
             --tag-bg: #e4e4e7;
             --input-bg: #ffffff;
             --md-strong: #18181b;
+            --btn-text: #0f766e; 
+            --btn-hover-text: #fff;
         }
 
         [data-theme="modern"] {
@@ -48,6 +52,8 @@
             --tag-bg: #334155;
             --input-bg: #0f172a;
             --md-strong: #fff;
+            --btn-text: #8b5cf6; 
+            --btn-hover-text: #fff;
         }
 
         [data-theme="minimalist"] {
@@ -62,6 +68,8 @@
             --tag-bg: #f5f5f5;
             --input-bg: #fafafa;
             --md-strong: #000;
+            --btn-text: #000000; 
+            --btn-hover-text: #fff; /* Minimalist temada hover metni beyaz olacak */
         }
 
         /* GENEL STİLLER */
@@ -141,7 +149,7 @@
 
         button {
             background: var(--accent); color: white; border: none; padding: 8px 16px;
-            border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: background 0.2s;
+            border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: background 0.2s, color 0.2s; /* Renk geçişi eklendi */
         }
 
         button:hover { background: var(--accent-hover); }
@@ -189,7 +197,7 @@
 
         /* AKORDEON NOTLAR BÖLÜMÜ */
         .accordion-content {
-            display: none; /* Varsayılan olarak gizli */
+            display: none; 
             margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--border);
             animation: fadeIn 0.3s ease-in-out;
         }
@@ -235,10 +243,17 @@
         .card-actions-right { display: flex; gap: 8px; }
         
         .toggle-notes-btn {
-            background: var(--input-bg); color: var(--accent); border: 1px solid var(--border);
+            background: var(--input-bg); 
+            color: var(--btn-text); /* Dinamik metin rengi eklendi */
+            border: 1px solid var(--border);
             padding: 5px 12px; border-radius: 4px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
         }
-        .toggle-notes-btn:hover { border-color: var(--accent); }
+        
+        .toggle-notes-btn:hover { 
+            border-color: var(--accent); 
+            background: var(--accent); /* Arka plan vurgu rengi olacak */
+            color: var(--btn-hover-text); /* Hover durumunda metin okunabilir renkte kalacak */
+        }
 
         .edit-btn, .delete-btn {
             background: transparent; border: 1px solid transparent; padding: 4px 10px;
@@ -352,7 +367,7 @@
 
                 <!-- KALICILIK UYARISI -->
                 <div class="modal-warning">
-                    ⚠️ Bu alıntı ile ilgili yaptığınız eklemeler, düzenlemeler veya alıntı silme eylemleri sadece kendi cihazınızda (tarayıcı hafızasında) kalacaktır. Ana sitede kalıcı değişiklik yapmak için işiniz bitince <b>"JSON İndir"</b> butonunu kullanmayı unutmayın.
+                    ⚠️ Yaptığınız eklemeler, düzenlemeler veya silme işlemleri <b>sadece bu cihazdaki tarayıcınızda</b> kalır ve ana siteyi etkilemez. Kendi notlarınızı bilgisayarınıza yedeklemek isterseniz <b>"JSON İndir"</b> butonunu kullanabilirsiniz.
                 </div>
 
                 <div class="form-actions">
@@ -367,8 +382,8 @@
         marked.setOptions({ breaks: true, gfm: true });
 
         let entries = [];
-        let currentFilter = null; // Etiket, yazar, eser filtresi
-        let currentSearchQuery = ""; // Arama çubuğu filtresi
+        let currentFilter = null; 
+        let currentSearchQuery = ""; 
         let editingIndex = null; 
 
         function changeTheme() {
@@ -408,7 +423,6 @@
                 renderFeed();
             });
 
-        // ARAMA FONKSİYONU
         function handleSearch() {
             currentSearchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
             renderFeed();
@@ -422,11 +436,10 @@
         function clearFilter() {
             currentFilter = null;
             currentSearchQuery = "";
-            document.getElementById('searchInput').value = ""; // Arama çubuğunu da temizle
+            document.getElementById('searchInput').value = ""; 
             renderFeed();
         }
 
-        // AKORDEON AÇ/KAPA FONKSİYONU
         function toggleNotes(index) {
             const content = document.getElementById(`notes-content-${index}`);
             const btn = document.getElementById(`toggle-btn-${index}`);
@@ -472,7 +485,6 @@
 
             let listToRender = entries;
             
-            // 1. Tıklanabilir Etiket/Yazar/Eser Filtresi Uygula
             if (currentFilter) {
                 if (currentFilter.type === 'author') {
                     listToRender = listToRender.filter(e => e.author === currentFilter.value);
@@ -483,7 +495,6 @@
                 }
             }
             
-            // 2. Arama Çubuğu Filtresi Uygula (Tüm metinlerde arar)
             if (currentSearchQuery) {
                 listToRender = listToRender.filter(e => {
                     const searchContent = [
@@ -495,7 +506,6 @@
                 });
             }
 
-            // Banner Durumunu Güncelle
             if (currentFilter || currentSearchQuery) {
                 banner.style.display = 'flex';
                 let bannerParts = [];
@@ -525,7 +535,6 @@
                     `<span class="tag" onclick="applyFilter('tag', '${tag}')">${tag}</span>`
                 ).join('');
                 
-                // Notlar kısmı (Akordeon İçeriği)
                 let notesHtml = '';
                 const hasNotes = entry.notes_notebooklm || entry.notes_personal || entry.notes_other;
                 
@@ -549,10 +558,9 @@
 
                 const dateStr = entry.date ? entry.date : "";
                 
-                // Sadece not varsa "Notları Göster" butonu çıkar
                 const toggleBtnHtml = hasNotes 
                     ? `<button class="toggle-notes-btn" id="toggle-btn-${mainIndex}" onclick="toggleNotes(${mainIndex})">Notları Göster ▼</button>`
-                    : `<div></div>`; // Düzenin bozulmaması için boş div
+                    : `<div></div>`;
 
                 card.innerHTML = `
                     <div class="quote-section">${entry.quote.replace(/\n/g, '<br>')}</div>
