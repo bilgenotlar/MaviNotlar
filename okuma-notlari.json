@@ -1,0 +1,27 @@
+[
+    {
+        "quote": "Enformasyon ve bilgi aynı manaya gelmezler. Enformasyon henüz doğruluğu kanıtlanmamış haber vb. iken bilgi enformasyonun bir ilerisidir. Burada artık enformasyon çeşitli yöntemlerle doğrulanmışve kesinleştirilmiş hale gelmiştir. Örneğin ",
+        "book": "Bilgi nedir",
+        "author": "Kemal Sönmez",
+        "tags": [
+            "Bilim",
+            "Düşünce"
+        ],
+        "notes_notebooklm": "Burada şu notlar yer alacak: blablabla",
+        "notes_personal": "Bana göre .....",
+        "notes_other": "Bu konuyla ilgili Socrates demiş ki"
+    },
+    {
+        "quote": "Saatin kendisi mekân, yürüyüşü zaman, ayarı insandır... Bu da gösterir ki, zaman ve mekân, insanla mevcuttur!",
+        "book": "Saatleri Ayarlama Enstitüsü",
+        "author": "Ahmet Hamdi Tanpınar",
+        "tags": [
+            "Zaman Felsefesi",
+            "Modernleşme",
+            "İroni"
+        ],
+        "notes_notebooklm": "Tanpınar, bu cümlede Bergsoncu zaman algısını ve Osmanlı'dan Cumhuriyet'e geçişteki 'ayar' (modernleşme/düzen) ihtiyacını özetler. NotebookLM analizine göre burada insan, zamanın pasif bir izleyicisi değil, onu 'ayarlayan' aktif bir öznedir.",
+        "notes_personal": "Bazen kendi hayatımı da sürekli bir 'ayar' verme çabası olarak görüyorum. Sistematik bir düzen kurmaya çalışırken aslında zamanı mı yoksa kendimi mi ayarlıyorum, bu söz bana bunu sorgulatıyor.",
+        "notes_other": "Romanın birinci bölümünde, Halit Ayarcı'nın enstitünün felsefi temelini Hayri İrdal'a açıkladığı an."
+    }
+]
