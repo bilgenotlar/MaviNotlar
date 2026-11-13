@@ -470,7 +470,7 @@
         }
 
         function deleteEntry(mainIndex) {
-            if (confirm("Bu alıntıyı sadece bu cihazdan silmek istediğinize emin misiniz?\n\n(Ana sitedeki kayıtlar bu işlemden etkilenmez.)")) {
+            if (confirm("Alıntıyı silmek üzeresiniz. Emin misiniz?\n\n(Bilgi: Ana sitedeki kayıtlar bu işlemden etkilenmez.)")) {
                 entries.splice(mainIndex, 1);
                 saveDataLocally();
                 renderFeed();
